@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fabric T-Shirt Customization</title>
+    <style>
+      body {
+        color: red;
+        margin: 0;
+        font-family: Helvetica, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2em;
+      }
+      .product {
+        position: relative;
+        box-shadow: 0 0 2em rgba(0, 0, 0, 0.2);
+        border-radius: 1em;
+        overflow: hidden;
+      }
+      canvas {
+        display: block;
+      }
+      .color-input {
+        background: #fff;
+        border: 1px #ccc solid;
+        border-radius: 4px;
+        padding: 0.3em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="product">
+      <canvas id="fabricCanvas"></canvas>
+      <div class="color"></div>
+    </div>
+
+    <div>
+      Customize Color:
+      <input type="color" class="color-input" value="#ff0000" />
+    </div>
+
+    <div>
+      <label for="logoInput">Upload Logo:</label>
+      <input type="file" id="logoInput" accept="image/*" />
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.3.1/fabric.min.js"></script>
+    <script>
+      const fabricCanvas = new fabric.Canvas("fabricCanvas", {
+        width: 300,
+        height: 400, // Adjusted canvas size
+        backgroundColor: "rgba(255, 255, 255, 1)",
+      });
+
+      const color = document.querySelector(".color");
+      const colorInput = document.querySelector(".color-input");
+      const logoInput = document.getElementById("logoInput");
+
+      colorInput.addEventListener("input", () => {
+        color.style.backgroundColor = colorInput.value;
+      });
+
+      logoInput.addEventListener("change", handleLogoUpload);
+
+      function handleLogoUpload() {
+        const file = logoInput.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const img = new Image();
+            img.src = e.target.result;
+            img.onload = function () {
+              const fabricImg = new fabric.Image(img, {
+                scaleX: 0.5,
+                scaleY: 0.5,
+              });
+              fabricCanvas.add(fabricImg);
+            };
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+    </script>
+  </body>
+</html>

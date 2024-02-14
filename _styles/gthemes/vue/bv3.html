@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Styled Blog with Vue and Vuetify</title>
+
+    <!-- Vue.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+    <!-- Vuetify CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@2.5.11/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.5.11/dist/vuetify.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <v-app>
+        <v-container>
+          <!-- Header with Dropdown Menu -->
+          <v-app-bar app color="primary">
+            <v-app-bar-nav-icon></v-app-bar-nav-icon>
+            <v-toolbar-title>Styled Blog</v-toolbar-title>
+
+            <v-spacer></v-spacer>
+
+            <v-menu offset-y>
+              <template v-slot:activator="{ on }">
+                <v-btn text v-on="on">Account</v-btn>
+              </template>
+              <v-list>
+                <v-list-item @click="login">Login</v-list-item>
+                <v-list-item @click="register">Register</v-list-item>
+              </v-list>
+            </v-menu>
+          </v-app-bar>
+
+          <v-row>
+            <!-- Blog Posts -->
+            <v-col v-for="(post, index) in posts" :key="index" cols="12" md="4">
+              <v-card class="post-card" :height="cardHeight">
+                <v-card-title>{{ post.title }}</v-card-title>
+                <v-card-text
+                  >{{ post.content.length > 100 ? post.content.slice(0, 100) +
+                  '...' : post.content }}
+                  <v-btn
+                    text
+                    v-if="post.content.length > 100"
+                    @click="readMore(index)"
+                    >Read More</v-btn
+                  >
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <!-- Right-Side Table -->
+            <v-col md="3" class="table-col">
+              <v-card class="table-card" color="grey lighten-3">
+                <v-card-title>Links</v-card-title>
+                <v-list>
+                  <v-list-item v-for="(link, index) in fakeLinks" :key="index">
+                    <v-list-item-action>
+                      <v-icon>mdi-link</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                      <v-list-item-title>{{ link }}</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </v-card>
+            </v-col>
+          </v-row>
+
+          <!-- Post Button -->
+          <v-btn @click="openPostModal" color="primary" fab fixed right bottom>
+            <v-icon>mdi-plus</v-icon>
+          </v-btn>
+
+          <!-- Post Modal -->
+          <v-dialog v-model="postModal" max-width="600">
+            <v-card>
+              <v-card-title>Create a New Post</v-card-title>
+              <v-card-text>
+                <v-form>
+                  <v-text-field
+                    v-model="newPost.title"
+                    label="Title"
+                  ></v-text-field>
+                  <v-textarea
+                    v-model="newPost.content"
+                    label="Content"
+                  ></v-textarea>
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn @click="savePost" color="primary">Post</v-btn>
+                <v-btn @click="closePostModal">Cancel</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-container>
+      </v-app>
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        vuetify: new Vuetify(),
+        data: {
+          posts: [
+            {
+              title: "Post 1",
+              content:
+                'This is the content of post 1. It may have a lot of text to demonstrate the "Read More" link.',
+            },
+            { title: "Post 2", content: "This is the content of post 2." },
+            // Add more posts as needed
+          ],
+          postModal: false,
+          newPost: {
+            title: "",
+            content: "",
+          },
+          cardHeight: 120,
+          fakeLinks: ["Link 1", "Link 2", "Link 3"],
+        },
+        methods: {
+          openPostModal() {
+            this.postModal = true;
+          },
+          closePostModal() {
+            this.postModal = false;
+          },
+          savePost() {
+            this.posts.push({
+              title: this.newPost.title,
+              content: this.newPost.content,
+            });
+            this.newPost.title = "";
+            this.newPost.content = "";
+            this.closePostModal();
+          },
+          readMore(index) {
+            // Redirect to a detailed view or expand the content
+            alert(`Read more about: ${this.posts[index].title}`);
+          },
+          login() {
+            // Add logic for login
+            alert("Login clicked");
+          },
+          register() {
+            // Add logic for register
+            alert("Register clicked");
+          },
+        },
+      });
+    </script>
+
+    <style>
+      .table-col {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100%;
+      }
+
+      .post-card {
+        width: calc(33.33% - 20px); /* Adjusted width */
+        margin-right: 10px; /* Adjusted margin */
+        margin-left: 10px; /* Adjusted margin */
+      }
+    </style>
+  </body>
+</html>

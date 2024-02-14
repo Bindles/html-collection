@@ -1,0 +1,37 @@
+<html>
+  <body>
+    <script type="module">
+      import {
+        createSignal,
+        onCleanup,
+      } from "https://cdn.skypack.dev/solid-js";
+      import { render } from "https://cdn.skypack.dev/solid-js/web";
+      import html from "https://cdn.skypack.dev/solid-js/html";
+
+      const Counter = ({ count, setCount }) => {
+        const increment = () => setCount(count() + 1);
+
+        return html`
+          <button type="button" onClick=${increment}>${count()}</button>
+        `;
+      };
+
+      const App = () => {
+        const [timerCount, setTimerCount] = createSignal(0),
+          counterProps = { count: timerCount, setCount: setTimerCount },
+          timer = setInterval(() => setTimerCount(timerCount() + 1), 1000);
+
+        onCleanup(() => clearInterval(timer));
+
+        return html`
+          <div>
+            <div>${timerCount}</div>
+            <${Counter} ...${counterProps} />
+          </div>
+        `;
+      };
+
+      render(App, document.body);
+    </script>
+  </body>
+</html>

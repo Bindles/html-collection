@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script>
+      // Shorthand aliases for common functions
+      function ge(elementId) {
+        return document.getElementById(elementId);
+      }
+
+      function qs(selector) {
+        return document.querySelector(selector);
+      }
+
+      function qsa(selector) {
+        return document.querySelectorAll(selector);
+      }
+
+      function ce(elementType) {
+        return document.createElement(elementType);
+      }
+
+      // Shorthand aliases for common event listeners
+      function on(eventType, target, callback) {
+        target.addEventListener(eventType, callback);
+      }
+
+      function click(target, callback) {
+        on("click", target, callback);
+      }
+
+      function load(callback) {
+        window.addEventListener("load", callback);
+      }
+
+      // Example usage:
+      // var myElement = ge('myElementId');
+      // var myButton = qs('.myButtonClass');
+      // var allParagraphs = qsa('p');
+      // var newDiv = ce('div');
+
+      // click(myButton, function() {
+      //   console.log('Button clicked!');
+      // });
+
+      // load(function() {
+      //   console.log('Page loaded!');
+      // });
+    </script>
+  </head>
+  <body>
+    <form id="myForm">
+      <label for="textInput">Enter Text:</label>
+      <input
+        type="text"
+        id="textInput"
+        name="textInput"
+        placeholder="Type something..."
+      />
+      <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+    <div id="mydiv"></div>
+    <script>
+      function submitForm() {
+        // Get the value from the text input
+        var inputValue = document.getElementById("textInput").value;
+
+        // Do something with the input value (for example, log it to the console)
+        console.log("Input Value:", inputValue);
+        mydiv.textContent = myvar + " kj";
+        document.getElementById("mydiv").textContent = "j";
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Assigning a value to myvar when the DOM is fully loaded
+        var myvar = "hello";
+
+        // Getting a reference to the mydiv element
+        var mydiv = document.getElementById("mydiv");
+
+        // Creating an input element
+        var inputElement = document.createElement("input");
+        inputElement.type = "text";
+        inputElement.placeholder = "Type something...";
+
+        // Creating a button element
+        var buttonElement = document.createElement("button");
+        buttonElement.textContent = "Submit";
+
+        // Adding a click event listener to the button
+        buttonElement.addEventListener("click", function () {
+          // Getting the value from the input
+          var inputValue = inputElement.value;
+
+          // Displaying a message in the mydiv element
+          mydiv.textContent = myvar + " " + inputValue;
+        });
+
+        // Appending the input and button to the mydiv element
+        mydiv.appendChild(inputElement);
+        mydiv.appendChild(buttonElement);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ice Blog</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+    <style>
+      body {
+        background: url("background-image.jpg") center/cover fixed;
+        backdrop-filter: blur(10px);
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+      }
+      .posts {
+        flex: 2;
+      }
+      .post-card {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .navigation {
+        flex: 1;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="posts">
+        <!-- Sample Post Card -->
+        <div class="post-card">
+          <h2 class="text-2xl font-bold">Blog Post Title</h2>
+          <p class="text-gray-700">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+          </p>
+        </div>
+
+        <!-- Add more post cards as needed -->
+      </div>
+
+      <div class="navigation">
+        <!-- Right-side Navigation Menu -->
+        <h2 class="text-xl font-bold mb-4">Categories</h2>
+        <ul>
+          <li>
+            <a href="#" class="text-blue-500 hover:underline">Category 1</a>
+          </li>
+          <li>
+            <a href="#" class="text-blue-500 hover:underline">Category 2</a>
+          </li>
+          <!-- Add more categories as needed -->
+        </ul>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js"
+      defer
+    ></script>
+  </body>
+</html>

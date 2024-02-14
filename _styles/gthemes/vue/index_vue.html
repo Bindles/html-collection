@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vuetify Example</title>
+
+    <!-- Vuetify CSS from CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@2.5.10/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Vuetify App -->
+    <div id="app">
+      <v-app>
+        <v-app-bar app>
+          <v-container>
+            <v-app-bar-nav-icon></v-app-bar-nav-icon>
+            <v-toolbar-title>My Vuetify App</v-toolbar-title>
+
+            <!-- Navigation Links -->
+            <v-row>
+              <v-col>
+                <v-btn text>Home</v-btn>
+              </v-col>
+              <v-col>
+                <v-btn text>Pages</v-btn>
+              </v-col>
+              <v-col>
+                <v-btn text>About</v-btn>
+              </v-col>
+            </v-row>
+
+            <!-- Account Dropdown -->
+            <v-row class="ml-auto">
+              <v-col>
+                <v-menu offset-y>
+                  <template v-slot:activator="{ on }">
+                    <v-btn text v-on="on"> Account </v-btn>
+                  </template>
+
+                  <v-list>
+                    <v-list-item
+                      v-for="(item, index) in accountMenuItems"
+                      :key="index"
+                      @click="handleMenuItemClick(item)"
+                    >
+                      <v-list-item-title>{{ item }}</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-app-bar>
+
+        <v-container>
+          <!-- ... Rest of your content ... -->
+        </v-container>
+      </v-app>
+    </div>
+
+    <!-- Vuetify and Vue.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.5.10/dist/vuetify.js"></script>
+
+    <!-- Your Vue instance and Vuetify initialization -->
+    <script>
+      new Vue({
+        el: "#app",
+        vuetify: new Vuetify(),
+        data() {
+          return {
+            name: "",
+            email: "",
+            message: "",
+            search: "",
+            accountMenuItems: ["Login", "Register", "New Post"],
+          };
+        },
+        methods: {
+          submitForm() {
+            // You can add form submission logic here (this is just a placeholder).
+            console.log("Form submitted:", this.name, this.email, this.message);
+          },
+          handleMenuItemClick(item) {
+            // Handle the menu item click (e.g., navigate to the selected page)
+            console.log("Clicked:", item);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Blog with Vue and Vuetify</title>
+
+    <!-- Vue.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+    <!-- Vuetify CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@2.5.11/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.5.11/dist/vuetify.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <v-app>
+        <v-container>
+          <!-- Header with Dropdown Menu -->
+          <v-app-bar app color="primary">
+            <v-app-bar-nav-icon></v-app-bar-nav-icon>
+            <v-toolbar-title>Simple Blog</v-toolbar-title>
+
+            <v-spacer></v-spacer>
+
+            <v-menu offset-y>
+              <template v-slot:activator="{ on }">
+                <v-btn text v-on="on">Account</v-btn>
+              </template>
+              <v-list>
+                <v-list-item @click="login">Login</v-list-item>
+                <v-list-item @click="register">Register</v-list-item>
+              </v-list>
+            </v-menu>
+          </v-app-bar>
+
+          <!-- Blog Posts -->
+          <v-row>
+            <v-col v-for="(post, index) in posts" :key="index" cols="12" md="4">
+              <v-card>
+                <v-card-title>{{ post.title }}</v-card-title>
+                <v-card-text>{{ post.content }}</v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+
+          <!-- Post Button -->
+          <v-btn @click="openPostModal" color="primary" fab fixed right bottom>
+            <v-icon>mdi-plus</v-icon>
+          </v-btn>
+
+          <!-- Post Modal -->
+          <v-dialog v-model="postModal" max-width="600">
+            <v-card>
+              <v-card-title>Create a New Post</v-card-title>
+              <v-card-text>
+                <v-form>
+                  <v-text-field
+                    v-model="newPost.title"
+                    label="Title"
+                  ></v-text-field>
+                  <v-textarea
+                    v-model="newPost.content"
+                    label="Content"
+                  ></v-textarea>
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn @click="savePost" color="primary">Post</v-btn>
+                <v-btn @click="closePostModal">Cancel</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-container>
+      </v-app>
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        vuetify: new Vuetify(),
+        data: {
+          posts: [
+            { title: "Post 1", content: "This is the content of post 1." },
+            { title: "Post 2", content: "This is the content of post 2." },
+            // Add more posts as needed
+          ],
+          postModal: false,
+          newPost: {
+            title: "",
+            content: "",
+          },
+        },
+        methods: {
+          openPostModal() {
+            this.postModal = true;
+          },
+          closePostModal() {
+            this.postModal = false;
+          },
+          savePost() {
+            this.posts.push({
+              title: this.newPost.title,
+              content: this.newPost.content,
+            });
+            this.newPost.title = "";
+            this.newPost.content = "";
+            this.closePostModal();
+          },
+          login() {
+            // Add logic for login
+            alert("Login clicked");
+          },
+          register() {
+            // Add logic for register
+            alert("Register clicked");
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

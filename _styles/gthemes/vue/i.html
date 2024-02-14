@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vuetify Example</title>
+
+    <!-- Vuetify CSS from CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@2.5.10/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Vuetify App -->
+    <div id="app">
+      <v-app>
+        <v-container>
+          <v-row>
+            <v-col>
+              <v-card>
+                <v-card-title class="headline"
+                  >Welcome to My Vuetify App!</v-card-title
+                >
+                <v-card-subtitle
+                  >Beautifully Styled with Vuetify</v-card-subtitle
+                >
+                <v-card-text>
+                  <v-form>
+                    <v-row>
+                      <v-col md="6">
+                        <v-text-field
+                          label="Name"
+                          v-model="name"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col md="6">
+                        <v-text-field
+                          label="Email"
+                          v-model="email"
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+
+                    <v-row>
+                      <v-col>
+                        <v-textarea
+                          label="Message"
+                          v-model="message"
+                        ></v-textarea>
+                      </v-col>
+                    </v-row>
+
+                    <v-row>
+                      <v-col>
+                        <v-btn color="primary" @click="submitForm"
+                          >Submit</v-btn
+                        >
+                      </v-col>
+                    </v-row>
+                  </v-form>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col>
+              <v-text-field
+                v-model="search"
+                label="Search"
+                outlined
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-app>
+    </div>
+
+    <!-- Vuetify and Vue.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.5.10/dist/vuetify.js"></script>
+
+    <!-- Your Vue instance and Vuetify initialization -->
+    <script>
+      new Vue({
+        el: "#app",
+        vuetify: new Vuetify(),
+        data() {
+          return {
+            name: "",
+            email: "",
+            message: "",
+            search: "",
+          };
+        },
+        methods: {
+          submitForm() {
+            // You can add form submission logic here (this is just a placeholder).
+            console.log("Form submitted:", this.name, this.email, this.message);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

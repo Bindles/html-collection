@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solid.js Example</title>
+
+    <!-- Solid.js and Solid Forms from Skypack CDN -->
+    <script type="module" src="https://cdn.skypack.dev/solid-js@3.5.0"></script>
+    <script
+      type="module"
+      src="https://cdn.skypack.dev/solid-forms@1.0.0-beta"
+    ></script>
+  </head>
+  <body>
+    <!-- Solid.js App -->
+    <div id="app"></div>
+
+    <!-- Your Solid.js script -->
+    <script type="module">
+      import { createSignal } from "https://cdn.skypack.dev/solid-js";
+      import {
+        createForm,
+        input,
+        textarea,
+        button,
+        select,
+        option,
+      } from "https://cdn.skypack.dev/solid-forms";
+
+      function App() {
+        const [name, setName] = createSignal("");
+        const [email, setEmail] = createSignal("");
+        const [message, setMessage] = createSignal("");
+        const [search, setSearch] = createSignal("");
+        const accountMenuItems = ["Login", "Register", "New Post"];
+
+        const form = createForm({
+          onSubmit: () => {
+            // You can add form submission logic here (this is just a placeholder).
+            console.log("Form submitted:", name(), email(), message());
+          },
+        });
+
+        return (
+          <div class="container">
+            <h1>Welcome to My Solid.js App!</h1>
+
+            {/* Form */}
+            <div class="form-row">
+              <label for="name">Name:</label>
+              {input(form, name, "text", "name")}
+            </div>
+
+            <div class="form-row">
+              <label for="email">Email:</label>
+              {input(form, email, "email", "email")}
+            </div>
+
+            <div class="form-row">
+              <label for="message">Message:</label>
+              {textarea(form, message, "message")}
+            </div>
+
+            <div class="form-row">{button(form, "Submit")}</div>
+
+            {/* Search Input */}
+            <div class="form-row">
+              {input(form, search, "text", "search", { placeholder: "Search" })}
+            </div>
+
+            {/* Account Dropdown */}
+            <div class="account-dropdown">
+              <label>Account:</label>
+              {select(form, accountMenuItems, "account", (value) =>
+                console.log("Clicked:", value)
+              )}
+            </div>
+          </div>
+        );
+      }
+
+      solid.create(App, document.getElementById("app"));
+    </script>
+  </body>
+</html>
